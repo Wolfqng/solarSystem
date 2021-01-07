@@ -21,18 +21,18 @@ public class SS extends JPanel{
     public Queue<double[]> tp = new LinkedList<double[]>();
     
     public void paintComponent(Graphics g){
-    	generateTrails(g);
     	for(int i = 0; i < BGStar.getCount(); i++) {
     		g.setColor(stars[i].getColor());
     		g.fillRect(stars[i].getX(), stars[i].getY(), stars[i].getSize(), stars[i].getSize());
     	}
     	
+    	generateTrails(g);
     	for(Planet p : planets) {
-    		System.out.println(p);
     		g.setColor(p.getC());
     		g.fillOval((int)(p.getX()), (int)(p.getY()), (int)p.getSize(), (int)p.getSize());
+    		generateVector(g, p);
     	}
-    	generateVector(g);
+    	
     }
 
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class SS extends JPanel{
         f.add(p);
         f.setVisible(true);
         //=====================Label, Solar S, X, Y, G, Mass, Size, Force, Angle, Color
-        planets.add(new Planet("P1", new SS(), 400, 300, 1, 130, 50, 65, 315, new Color(255, 0, 0)));
+        planets.add(new Planet("P1", new SS(), 400, 300, 1, 130, 50, 65, 315, new Color(255, 0, 0), false));
         planets.add(new Planet("P2", new SS(), 600, 500, 1, 130, 50, 65, 135, new Color(255, 255, 0)));
         planets.add(new Planet("P3", new SS(), 500, 800, 1, 20, 20, 20, 0, new Color(255, 255, 0)));
         
@@ -71,7 +71,7 @@ public class SS extends JPanel{
     		tp.add(coord);
     	}
     	
-    	if(tp.size() > 100000) tp.remove();
+    	if(tp.size() > 10000) tp.remove();
     	ArrayList<double[]> coords = new ArrayList<double[]>(tp);
     	for(double[] coord : coords) 
     		g.fillRect((int)coord[0], (int)coord[1], 1, 1);
@@ -79,15 +79,14 @@ public class SS extends JPanel{
     }
     
     //generate planet direction vectors
-    public void generateVector(Graphics g) {
+    public void generateVector(Graphics g, Planet p) {
     	g.setColor(new Color(0, 255, 0));
-    	
-    	for(Planet p : planets) {
-    		double angle = p.getAngle();
-    		double x = p.getX() + (p.getSize() / 2);
-    		double y = p.getY() + (p.getSize() / 2);
-    		double f = p.getForce();
-    		g.drawLine((int)x, (int)y, (int)(f * Math.cos(angle) + x), (int)(f * Math.sin(angle) + y));
-    	}
+		System.out.println(p);
+		if(!p.isCanMove()) return;
+		double angle = p.getAngle();
+		double x = p.getX() + (p.getSize() / 2);
+		double y = p.getY() + (p.getSize() / 2);
+		double f = p.getForce();
+		g.drawLine((int)x, (int)y, (int)(f * Math.cos(angle) + x), (int)(f * Math.sin(angle) + y));
     }
 }

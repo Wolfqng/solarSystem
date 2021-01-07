@@ -23,6 +23,7 @@ public class Planet {
 		this.force = force;
 		this.angle = angle * Math.PI / 180;
 		this.c = c;
+		this.canMove = true;
 	}
 
 	public Planet(String label, SS home, int x, int y, double g, double mass, double size, double force, double angle, Color c, boolean canMove) {
@@ -174,7 +175,7 @@ public class Planet {
 	@Override
 	public String toString() {
 		return "Planet [label=" + label + ", home=" + home + ", x=" + x + ", y=" + y + ", G=" + G + ", mass=" + mass
-				+ ", size=" + size + ", force=" + force + ", angle=" + angle + ", c=" + c + "]";
+				+ ", size=" + size + ", force=" + force + ", angle=" + angle + ", c=" + c + ", canMove=" + canMove
+				+ "]";
 	}
-
 }
