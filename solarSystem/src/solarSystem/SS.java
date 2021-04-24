@@ -75,7 +75,6 @@ public class SS extends JPanel{
     	ArrayList<double[]> coords = new ArrayList<double[]>(tp);
     	for(double[] coord : coords) 
     		g.fillRect((int)coord[0], (int)coord[1], 1, 1);
-    	
     }
     
     //generate planet direction vectors
